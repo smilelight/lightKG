@@ -5,4 +5,5 @@
 build
 dist
 .vscode
+lightKG.egg-info/
 test/*_saves
