@@ -65,6 +65,9 @@ pip install https://github.com/pytorch/text/archive/master.zip
 ## 模型
 
 - krl：TransE等
+- re: TextCNN
+- srl: BiLstm-CRF
+- ner: BiLstm-CRF
 
 ## 训练数据说明
 
