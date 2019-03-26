@@ -21,9 +21,15 @@
 
 ### 实体识别与链接
 
+- 命名实体识别， ner
+
 ### 实体关系抽取
 
+- 关系抽取， re
+
 ### 事件检测与抽取
+
+- 语义角色标注， srl
 
 ### 知识存储与查询
 
@@ -147,6 +153,124 @@ print(krl.predict_head(rel='外文名', tail='Compiler'))
 [('编译器', 0.998942494392395), ('译码器', 0.36795616149902344), ('计算机，单片机，编程语言', 0.36788302659988403)]
 ```
 
+### ner
+
+#### 训练
+
+```python
+from lightkg.erl import NER
+
+# 创建NER对象
+ner_model = NER()
+
+train_path = '/home/lightsmile/NLP/corpus/ner/train.sample.txt'
+dev_path = '/home/lightsmile/NLP/corpus/ner/test.sample.txt'
+vec_path = '/home/lightsmile/NLP/embedding/char/token_vec_300.bin'
+
+# 只需指定训练数据路径，预训练字向量可选，开发集路径可选，模型保存路径可选。
+ner_model.train(train_path, vectors_path=vec_path, dev_path=dev_path, save_path='./ner_saves')
+```
+
+#### 测试
+
+```python
+# 加载模型，默认当前目录下的`saves`目录
+ner_model.load('./ner_saves')
+# 对train_path下的测试集进行读取测试
+ner_model.test(train_path)
+```
+
+#### 预测
+
+```python
+from pprint import pprint
+
+pprint(ner_model.predict('另一个很酷的事情是，通过框架我们可以停止并在稍后恢复训练。'))
+```
+
+预测结果：
+
+```bash
+[{'end': 15, 'entity': '我们', 'start': 14, 'type': 'Person'}]
+```
+
+### re
+
+#### 训练
+
+```python
+from lightkg.ere import RE
+
+re = RE()
+
+train_path = '/home/lightsmile/Projects/NLP/ChineseNRE/data/people-relation/train.sample.txt'
+dev_path = '/home/lightsmile/Projects/NLP/ChineseNRE/data/people-relation/test.sample.txt'
+vec_path = '/home/lightsmile/NLP/embedding/word/sgns.zhihu.bigram-char'
+
+re.train(train_path, dev_path=dev_path, vectors_path=vec_path, save_path='./re_saves')
+
+```
+
+#### 测试
+
+```python
+re.load('./re_saves')
+re.test(dev_path)
+```
+
+#### 预测
+
+```python
+print(re.predict('钱钟书', '辛笛', '与辛笛京沪唱和聽钱钟书与钱钟书是清华校友，钱钟书高辛笛两班。'))
+```
+
+预测结果：
+
+```python
+(0.7306928038597107, '同门') # return格式为（预测概率，预测标签）
+```
+
+### srl
+
+#### 训练
+
+```python
+from lightkg.ede import SRL
+
+srl_model = SRL()
+
+train_path = '/home/lightsmile/NLP/corpus/srl/train.sample.tsv'
+dev_path = '/home/lightsmile/NLP/corpus/srl/test.sample.tsv'
+vec_path = '/home/lightsmile/NLP/embedding/word/sgns.zhihu.bigram-char'
+
+
+srl_model.train(train_path, vectors_path=vec_path, dev_path=dev_path, save_path='./srl_saves')
+```
+
+#### 测试
+
+```python
+srl_model.load('./srl_saves')
+
+srl_model.test(dev_path)
+```
+
+#### 预测
+
+```python
+word_list = ['代表', '朝方', '对', '中国', '党政', '领导人', '和', '人民', '哀悼', '金日成', '主席', '逝世', '表示', '深切', '谢意', '。']
+pos_list = ['VV', 'NN', 'P', 'NR', 'NN', 'NN', 'CC', 'NN', 'VV', 'NR', 'NN', 'VV', 'VV', 'JJ', 'NN', 'PU']
+rel_list = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+
+print(srl_model.predict(word_list, pos_list, rel_list))
+```
+
+预测结果：
+
+```bash
+{'ARG0': '中国党政领导人和人民', 'rel': '哀悼', 'ARG1': '金日成主席逝世'}
+```
+
 ## 项目组织结构
 
 ### 项目架构
@@ -158,10 +282,18 @@ print(krl.predict_head(rel='外文名', tail='Compiler'))
 - common
     - entity.py
     - relation.py
+- ede
+    - srl, 语义角色标注
+- ere
+    - re， 关系抽取
+- erl
+    - ner， 命名实体识别
+- kr
 - krl，知识表示学习
     - models
         - transE
     - utils
+- ksq
 - utils
 
 ### 架构说明
@@ -207,6 +339,9 @@ print(krl.predict_head(rel='外文名', tail='Compiler'))
 
 ### 功能
 
+- [x] 增加关系抽取相关模型以及训练预测代码
+- [x] 增加事件抽取相关模型以及训练预测代码
+- [x] 增加命名实体识别相关模型以及预测训练代码
 - [x] 增加基于翻译模型的知识表示学习相关模型以及训练预测代码
 
 ## 参考
