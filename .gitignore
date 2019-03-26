@@ -1,0 +1,8 @@
+*__pycache__*
+*.vector_cache*
+*.vscode*
+*.idea*
+build
+dist
+.vscode
+test/*_saves
