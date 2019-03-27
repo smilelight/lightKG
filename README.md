@@ -90,6 +90,86 @@ csv格式
 物理宇宙学,所属,天体物理学
  ```
  
+ #### ner
+
+BIO
+
+训练数据示例如下：
+
+```bash
+清 B_Time
+明 I_Time
+是 O
+人 B_Person
+们 I_Person
+祭 O
+扫 O
+先 B_Person
+人 I_Person
+， O
+怀 O
+念 O
+追 O
+思 O
+的 O
+日 B_Time
+子 I_Time
+。 O
+
+正 O
+如 O
+宋 B_Time
+代 I_Time
+诗 B_Person
+人 I_Person
+```
+
+#### srl
+
+CONLL
+
+训练数据示例如下，其中各列分别为`词`、`词性`、`是否语义谓词`、`角色`，每句仅有一个谓语动词为语义谓词，即每句中第三列仅有一行取值为1，其余都为0.
+
+```bash
+宋浩京  NR      0       O
+转达    VV      0       O
+了      AS      0       O
+朝鲜    NR      0       O
+领导人  NN      0       O
+对      P       0       O
+中国    NR      0       O
+领导人  NN      0       O
+的      DEG     0       O
+亲切    JJ      0       O
+问候    NN      0       O
+，      PU      0       O
+代表    VV      0       O
+朝方    NN      0       O
+对      P       0       O
+中国    NR      0       B-ARG0
+党政    NN      0       I-ARG0
+领导人  NN      0       I-ARG0
+和      CC      0       I-ARG0
+人民    NN      0       E-ARG0
+哀悼    VV      1       rel
+金日成  NR      0       B-ARG1
+主席    NN      0       I-ARG1
+逝世    VV      0       E-ARG1
+表示    VV      0       O
+深切    JJ      0       O
+谢意    NN      0       O
+。      PU      0       O
+```
+
+#### re
+
+训练数据示例如下，其中各列分别为`实体1`、`实体2`、`关系`、`句子`
+
+```bash
+钱钟书	辛笛	同门	与辛笛京沪唱和聽钱钟书与钱钟书是清华校友，钱钟书高辛笛两班。
+元武	元华	unknown	于师傅在一次京剧表演中，选了元龙（洪金宝）、元楼（元奎）、元彪、成龙、元华、元武、元泰7人担任七小福的主角。
+```
+
  ## 使用
  
  ### krl
