@@ -9,7 +9,7 @@ with open('./requirements.txt', 'r', encoding='utf8') as f:
 
 setup(
     name='lightKG',
-    version='0.1.0.0',
+    version='0.1.0.1',
     description="lightsmile's knowledge graph library",
     author='lightsmile',
     author_email='iamlightsmile@gmail.com',
