@@ -512,4 +512,4 @@ print(srl_model.predict(word_list, pos_list, rel_list))
 
 如果该项目对您有所帮助，欢迎打赏~
 
-![lho7wD.jpg](https://s2.ax1x.com/2020/01/10/lho7wD.jpg)
+![UTOOLS1578660899400.jpg](https://lightsmile-img.oss-cn-beijing.aliyuncs.com/UTOOLS1578660899400.jpg)
