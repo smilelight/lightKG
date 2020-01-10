@@ -1,5 +1,9 @@
 # lightKG，lightsmile个人的知识图谱技术框架
 
+## 说明
+
+最近忙着学别的，暂时没怎么管这个lib了，后续会持续更新的。
+
 ## 前言
 
 根据知识图谱发展报告2018相关介绍，框架主要设计为有以下五大功能：
@@ -503,3 +507,9 @@ print(srl_model.predict(word_list, pos_list, rel_list))
 - [chinese_semantic_role_labeling](https://github.com/Nrgeup/chinese_semantic_role_labeling)
 
 ### 其他
+
+## 打赏
+
+如果该项目对您有所帮助，欢迎打赏~
+
+![lho7wD.jpg](https://s2.ax1x.com/2020/01/10/lho7wD.jpg)
